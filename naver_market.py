@@ -179,6 +179,7 @@ print(f'미국USD와 일본JPY의 상관계수 : {correlation:.4f}')
 #.corr()으로 전체 상관계수 행렬을 만들고 필요한 값만 추출해 확장성 확보
 
 #상관계수 시각화
+'''
 sns.scatterplot(
     x=df_market['미국USD_변화율'],
     y=df_market['일본JPY(100엔)_변화율'],
@@ -189,6 +190,29 @@ plt.xlabel('미국USD_변화율')
 plt.ylabel('일본JPY(100엔)_변화율')
 plt.axhline(0, color='gray', linestyle='--')
 plt.axvline(0, color='gray', linestyle='--')
+plt.show()
+'''
+
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    x=df_market['미국USD_변화율'],
+    y=df_market['일본JPY(100엔)_변화율'],
+    data=df_market
+)
+plt.title(f'환율 변화율 상관관계 (corr={correlation:.2f})')
+plt.xlabel('미국USD_변화율')
+plt.ylabel('일본JPY(100엔)_변화율')
+plt.axhline(0, color='gray', linestyle='--')
+plt.axvline(0, color='gray', linestyle='--')
+
+#각 점에 날짜 라벨 추가
+for i in range(len(df_market)):
+    plt.text(df_market['미국USD_변화율'].iloc[i],
+             df_market['일본JPY(100엔)_변화율'].iloc[i],
+             df_market['날짜'].dt.strftime('%m-%d').iloc[i],
+             fontsize=8, alpha=0.7)
+
+plt.tight_layout()
 plt.show()
 
 print('\n')
@@ -203,6 +227,7 @@ kmeans = KMeans(n_clusters=3, random_state=42)
 df_market['클러스터'] = kmeans.fit_predict(df_market_x)
 
 #각 클러스터별로 변화율을 색으로 표시한 산점도 시각화
+'''
 sns.scatterplot(
     data=df_market,
     x='미국USD_변화율',
@@ -214,6 +239,29 @@ sns.scatterplot(
 plt.xlabel('미국USD_변화율')
 plt.ylabel('일본JPY(100엔)_변화율')
 plt.title('환율 변화율 클러스터링')
+plt.show()
+'''
+
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    data=df_market,
+    x='미국USD_변화율',
+    y='일본JPY(100엔)_변화율',
+    hue='클러스터',
+    palette='viridis'
+)
+plt.xlabel('미국USD_변화율')
+plt.ylabel('일본JPY(100엔)_변화율')
+plt.title('환율 변화 클러스터링')
+
+#각 점에 날짜 라벨 추가
+for i in range(len(df_market)):
+    plt.text(df_market['미국USD_변화율'].iloc[i],
+             df_market['일본JPY(100엔)_변화율'].iloc[i],
+             df_market['날짜'].dt.strftime('%m-%d').iloc[i],
+             fontsize=8, alpha=0.7)
+    
+plt.tight_layout()
 plt.show()
 #KMeans는 환율의 움직임 패턴을 자동으로 3가지 유형으로 분류
 #산점도를 통해 어떤 날이 오르고, 어떤 날은 반대로 움직이는 지 시각적으로 확인할 수 있음

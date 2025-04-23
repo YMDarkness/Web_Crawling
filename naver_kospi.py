@@ -61,6 +61,8 @@ if kospi_index is not None:
 else:
     print('[알람] 코스피 지수 데이터 저장 실패')
 
+print('\n')
+
 #csv 파일 읽기
 df_kospi = pd.read_csv('kospi_index.csv', encoding='utf-8-sig')
 
