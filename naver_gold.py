@@ -79,7 +79,7 @@ df_gold['전일_대비_금_시세(%)'] = df_gold['전일_대비_금_시세(%)'].
 #금 시세 상승여부
 df_gold['상승여부'] = df_gold['금_시세'].diff().apply(lambda x: '상승' if x > 0 else ('하락' if x < 0 else '변동없음'))
 
-df_golds = df_gold['날짜', '금_시세', '전일_대비_금_시세(%)', '상승여부']
+df_golds = df_gold[['날짜', '금_시세', '전일_대비_금_시세(%)', '상승여부']]
 print(df_golds.tail().to_string(float_format='%.2f'), '\n')
 
 #날짜 형 변환
