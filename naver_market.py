@@ -56,21 +56,18 @@ if usd_index is not None and jpy_index is not None:
     if os.path.exists(filename):
         df_market = pd.read_csv(filename, encoding='utf-8-sig')
     else:
-        df_market = pd.DataFrame({
-            '날짜': pd.Series(dtype='str'),
-            '미국USD': pd.Series(dtype='float'),
-            '일본JPY(100엔)': pd.Series(dtype='float')
-        })
+        df_market = pd.DataFrame(
+            columns=['날짜', '미국USD', '일본JPY(100엔)']
+        )
 
     if today in df_market['날짜'].values:
         print(f'[알람] 오늘 달러 환율 데이터가 이미 존재합니다')
         print(f'[알람] 오늘 엔화 환율 데이터가 이미 존재합니다')
     else:
-        new_row = pd.DataFrame([[today, usd_index, jpy_index]], columns=({
-            '날짜': pd.Series(dtype='str'),
-            '미국USD': pd.Series(dtype='float'),
-            '일본JPY(100엔)': pd.Series(dtype='float')
-        }))
+        new_row = pd.DataFrame(
+            [[today, usd_index, jpy_index]], 
+            columns=['날짜', '미국USD', '일본JPY(100엔)']
+        )
         df_market = pd.concat([df_market, new_row], ignore_index=True)
         df_market.to_csv(filename, encoding='utf-8-sig', index=False)
         print('[알람] 환율 데이터 저장 완료 : ',today)
