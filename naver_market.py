@@ -90,13 +90,13 @@ df_market = df_market.sort_values(by='날짜')
 df_market['전일_미국USD'] = df_market['미국USD'].shift(1)
 
 #전일 대비 달러 변화량 계산
-df_market['전일_대비_변화율(%)'] = df_market['미국USD'].pct_change() * 100
-df_market['전일_대비_변화율(%)'] = df_market['전일_대비_변화율(%)'].map(lambda x: f'{x:.2f}%' if pd.notna(x) else '')
+df_market['전일_대비_달러_변화율(%)'] = df_market['미국USD'].pct_change() * 100
+df_market['전일_대비_달러_변화율(%)'] = df_market['전일_대비_달러_변화율(%)'].map(lambda x: f'{x:.2f}%' if pd.notna(x) else '')
 
 #달러 환율 상승/하락 여부
-df_market['상승여부'] = df_market['미국USD'].diff().apply(lambda x: '상승' if x > 0 else ('하락' if x < 0 else '변동없음'))
+df_market['달러_상승여부'] = df_market['미국USD'].diff().apply(lambda x: '상승' if x > 0 else ('하락' if x < 0 else '변동없음'))
 
-df_USD = df_market[['날짜', '미국USD', '전일_미국USD', '전일_대비_변화율(%)', '상승여부']]
+df_USD = df_market[['날짜', '미국USD', '전일_미국USD', '전일_대비_달러_변화율(%)', '달러_상승여부']]
 print(df_USD.tail().to_string(float_format='%.2f'), '\n')
 
 
@@ -104,15 +104,17 @@ print(df_USD.tail().to_string(float_format='%.2f'), '\n')
 df_market['전일_일본JPY(100엔)'] = df_market['일본JPY(100엔)'].shift(1)
 
 #전일 대비 엔 변화량 계산
-df_market['전일_대비_변화율(%)'] = df_market['일본JPY(100엔)'].pct_change() * 100
-df_market['전일_대비_변화율(%)'] = df_market['전일_대비_변화율(%)'].map(lambda x: f'{x:.2f}%' if pd.notna(x) else '')
+df_market['전일_대비_엔화_변화율(%)'] = df_market['일본JPY(100엔)'].pct_change() * 100
+df_market['전일_대비_엔화_변화율(%)'] = df_market['전일_대비_엔화_변화율(%)'].map(lambda x: f'{x:.2f}%' if pd.notna(x) else '')
 
 #엔 환율 상승/하락 여부
-df_market['상승여부'] = df_market['일본JPY(100엔)'].diff().apply(lambda x: '상승' if x > 0 else ('하락' if x < 0 else '변동없음'))
+df_market['엔화_상승여부'] = df_market['일본JPY(100엔)'].diff().apply(lambda x: '상승' if x > 0 else ('하락' if x < 0 else '변동없음'))
 
-df_JPY = df_market[['날짜', '일본JPY(100엔)', '전일_일본JPY(100엔)', '전일_대비_변화율(%)', '상승여부']]
+df_JPY = df_market[['날짜', '일본JPY(100엔)', '전일_일본JPY(100엔)', '전일_대비_엔화_변화율(%)', '엔화_상승여부']]
 print(df_JPY.tail().to_string(float_format='%.2f'))
 
+#csv 파일 업데이트
+df_market[['날짜', '미국USD', '전일_대비_달러_변화율(%)', '달러_상승여부', '일본JPY(100엔)', '전일_대비_엔화_변화율(%)', '엔화_상승여부']].to_csv('exchange_rate.csv', index=False, float_format='%.2f')
 
 # 날짜를 날짜형으로 바꾸기 (그래프용)
 df_market['날짜'] = pd.to_datetime(df_market['날짜'])
