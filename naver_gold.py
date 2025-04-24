@@ -73,14 +73,20 @@ df_gold = df_gold.sort_values(by='날짜')
 df_gold['전일_금_시세'] = df_gold['금_시세'].shift(1)
 
 #전일 대비 변화량 계산
-df_gold['전일_대비_금_시세(%)'] = df_gold['금_시세'].pct_change() * 100
-df_gold['전일_대비_금_시세(%)'] = df_gold['전일_대비_금_시세(%)'].map(lambda x: f'{x:.2f}%' if pd.notna(x) else '')
+df_gold['전일_대비_변화량(%)'] = df_gold['금_시세'].pct_change() * 100
+df_gold['전일_대비_변화량(%)'] = df_gold['전일_대비_변화량(%)'].map(lambda x: f'{x:.2f}%' if pd.notna(x) else '')
 
 #금 시세 상승여부
 df_gold['상승여부'] = df_gold['금_시세'].diff().apply(lambda x: '상승' if x > 0 else ('하락' if x < 0 else '변동없음'))
 
-df_golds = df_gold[['날짜', '금_시세', '전일_대비_금_시세(%)', '상승여부']]
+df_golds = df_gold[['날짜', '금_시세', '전일_대비_변화량(%)', '상승여부']]
 print(df_golds.tail().to_string(float_format='%.2f'), '\n')
+
+#csv update
+df_gold.to_csv('gold_price.csv', index=False, encoding='utf-8-sig', float_format='%.2f')
+
+#특정 컬럼만 골라 업데이트
+#df_gold[[컬럼1, 컬럼2]].to_csv('gold_price.csv', index=False, encoding='utf-8-sig', float_format='%.2f')
 
 #날짜 형 변환
 df_gold['날짜'] = pd.to_datetime(df_gold['날짜'])
