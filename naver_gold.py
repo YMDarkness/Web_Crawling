@@ -107,7 +107,7 @@ plt.tight_layout()
 plt.show()
 
 #금 시세 예측 (ARIMA Model)
-# 5 = , 1 = , 0 = 
+# 5 = 과거 시계열 값, 1 = 차분 횟수, 0 = 오차 항
 df_gold['날짜'] = pd.to_datetime(df_gold['날짜'])
 df_gold.set_index('날짜', inplace=True)
 
@@ -115,15 +115,20 @@ gold_model = ARIMA(df_gold['금_시세'], order=(5, 1, 0))
 gold_model_fit = gold_model.fit()
 
 '''
-p - AR (AutoRegressive) 차수 - 과거 시계열 값 자체를 몇 시점까지 참고할지 결정해.
-                                예: p=5면 과거 5일간의 금 시세를 참고해서 오늘을 예측해.
+p - AR (AutoRegressive) 자기회기 차수 - 과거 데이터 몇 개를 참조할지
+                                        예: p=5면 과거 5일간의 금 시세를 참고해서 오늘을 예측해.
 
-d - 차분 횟수 (Differencing) - 시계열 데이터를 몇 번 차분해서 **평균이 일정한 데이터(정상성)**로 만들지를 뜻해.
-                                예: d=1은 1차 차분을 뜻하고, 이는 오늘 값 - 어제 값을 말해
+d - (Differencing) 차분 차수 - 데이터가 너무 우상향/우하향하는 걸 없애려고 몇 번 차분할지
+                                        예: d=1은 1차 차분을 뜻하고, 이는 오늘 값 - 어제 값을 말해
 
-q - MA (Moving Average) 차수 - 과거 예측 오차를 몇 시점까지 반영할지 설정해.
-                                예: q=0이면 오차 항은 고려하지 않겠다는 의미야.
+q - MA (Moving Average) 이동평균 차수 - 이전의 오차(예측이 빗나간 정도) 를 몇 개까지 참고할지
+                                        데이터가 적거나 단순하면 0이나 1로 작게하고
+                                        데이터의 급변, 반복 오차 패턴이 있으면 1 이상으로 키움
+                                        예: q=0이면 오차 항은 고려하지 않겠다는 의미야.
 
+p는 과거 데이터, d는 안정성(추세 제거), q는 오차 조정
+→ 세 가지를 조합해서 "미래를 예측"
+                                
 p=5: 이전 5일간 금 시세 값을 기반으로
 d=1: 데이터가 추세를 띄므로 한 번 차분하여
 q=0: 예측 오차는 반영하지 않고
@@ -147,11 +152,44 @@ plt.show()
 
 #-------------------------------------------------------------
 
+#차수가 3인 모델
+gold_model = ARIMA(df_gold['금_시세'], order=(3, 1, 0))
+gold_model_fit = gold_model.fit()
 
+#최대 5일 예측
+gold_forecast = gold_model_fit.forecast(steps=5)
+
+#날짜 인덱스 생성
+future_gold = pd.date_range(start=df_gold.index[-1] + pd.Timedelta(day=1), periods=5)
+
+#예측 시각화
+plt.plot(df_gold['금_시세'], label='실제 금 시세')
+plt.plot(future_gold, gold_forecast, label='예측 시세', linestyle='--')
+plt.xticks(rotation=45)
+plt.legend()
+plt.title('금 시세 5일 예측')
+plt.tight_layout()
+plt.show()
 
 #-------------------------------------------------------------
 
+gold_model = ARIMA(df_gold['금_시세'], order=())
+gold_model_fit = gold_model.fit()
 
+#최대 5일 예측
+gold_forecast = gold_model_fit.forecast(steps=5)
+
+#날짜 인덱스 생성
+future_gold = pd.date_range(start=df_gold.index[-1] + pd.Timedelta(day=1), periods=5)
+
+#예측 시각화
+plt.plot(df_gold['금_시세'], label='실제 금 시세')
+plt.plot(future_gold, gold_forecast, label='예측 시세', linestyle='--')
+plt.xticks(rotation=45)
+plt.legend()
+plt.title('금 시세 5일 예측')
+plt.tight_layout()
+plt.show()
 
 #-------------------------------------------------------------
 
