@@ -18,7 +18,7 @@ def main():
     df_market = market_clusters(df_market)
 
     #아리마 모델을 이용한 환율 예측
-    market_ARIMA(df_market)
+    df_market = market_ARIMA(df_market)
     
 if __name__ == '__main__':
     main()
