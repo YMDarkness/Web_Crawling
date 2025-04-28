@@ -10,7 +10,7 @@ from process_gold_price import process_gold_price_csv
 #시각화 및 ARIMA 모델
 #날짜형 변환
 def change_date_and_ARIMA_model(filename='gold_price.csv'):
-    df_gold, df_golds = process_gold_price_csv()
+    df_gold, _ = process_gold_price_csv()
 
     df_gold['날짜'] = pd.to_datetime(df_gold['날짜'])
 

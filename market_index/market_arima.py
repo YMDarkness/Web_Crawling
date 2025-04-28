@@ -216,3 +216,5 @@ def market_ARIMA(filename='exchange_rate.csv'):
     plt.legend()
     plt.tight_layout()
     plt.show()
+
+    return df_all, df_forecast, future_USD, future_JPY

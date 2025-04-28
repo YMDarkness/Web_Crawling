@@ -6,7 +6,7 @@ from market_crawl import market_index
 
 #달러-엔화 상관관계
 def usd_jpy_correlations(filename='exchange_rate.csv'):
-    df_market = market_index()
+    df_market, _, _ = market_index()
 
     df_market = pd.read_csv(filename, parse_dates=['날짜'])
     df_market.sort_values('날짜', inplace=True)
