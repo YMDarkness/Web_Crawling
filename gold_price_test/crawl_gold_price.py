@@ -45,7 +45,7 @@ def gold_crwal_and_save_csv(filename = 'gold_price.csv'):
             )
 
         if timeline in df_gold['날짜'].values:
-            print(f'[알람] 오늘 금 시세 데이터가 이미 존재합니다')
+            print(f'[알람] 오늘 금 시세 데이터가 이미 존재합니다 \n')
         else:
             new_row = pd.DataFrame(
                 [[timeline, gold_index]],
@@ -55,7 +55,7 @@ def gold_crwal_and_save_csv(filename = 'gold_price.csv'):
             df_gold.to_csv(filename, index=False, encoding='utf-8-sig')
             print(f'[알람] 금 시세 데이터 저장 완료 : ', timeline, gold_index)
     else:
-        print(f'[알람] 금 시세 데이터 저장 실패')
+        print(f'[알람] 금 시세 데이터 저장 실패 \n')
 
         #데이터프레임을 비어있는 형태로 만듬
         df_gold = pd.DataFrame(

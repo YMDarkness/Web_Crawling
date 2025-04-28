@@ -5,8 +5,7 @@ import pandas as pd
 from crawl_gold_price import gold_crwal_and_save_csv
 
 #csv 파일 읽기
-def process_gold_price_csv(filename='gold_price.csv'):
-    df_gold = gold_crwal_and_save_csv()
+def process_gold_price_csv(df_gold):
 
     #데이터 정렬
     df_gold['날짜'] = pd.to_datetime(df_gold['날짜'])
@@ -32,4 +31,4 @@ def process_gold_price_csv(filename='gold_price.csv'):
     #df_gold[[컬럼1, 컬럼2]].to_csv('gold_price.csv', index=False, encoding='utf-8-sig', float_format='%.2f')
 
     #최종 데이터프레임 반환
-    return df_gold, df_golds
+    return df_gold

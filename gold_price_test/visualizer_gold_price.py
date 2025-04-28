@@ -2,15 +2,14 @@ import pandas as pd
 from tabulate import tabulate
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-from statsmodels.tsa.arima_model import ARIMA
+from statsmodels.tsa.arima.model import ARIMA
 import seaborn as sns
 
 from process_gold_price import process_gold_price_csv
 
 #시각화 및 ARIMA 모델
 #날짜형 변환
-def change_date_and_ARIMA_model(filename='gold_price.csv'):
-    df_gold, _ = process_gold_price_csv()
+def change_date_and_ARIMA_model(df_gold):
 
     df_gold['날짜'] = pd.to_datetime(df_gold['날짜'])
 
@@ -73,12 +72,12 @@ def change_date_and_ARIMA_model(filename='gold_price.csv'):
     plt.show()
 
     #-------------------------------------------------------------------------
-    
+    '''
     #차수가 3인 모델
     gold_model = ARIMA(df_gold['금_시세'], order=(3, 1, 0))
     gold_model_fit = gold_model.fit()
 
-    #최대 5일 예측
+    #최대 3일 예측
     gold_forecast = gold_model_fit.forecast(steps=5)
 
     #날짜 인덱스 생성
@@ -89,10 +88,10 @@ def change_date_and_ARIMA_model(filename='gold_price.csv'):
     plt.plot(future_gold, gold_forecast, label='예측 시세', linestyle='--')
     plt.xticks(rotation=45)
     plt.legend()
-    plt.title('금 시세 5일 예측')
+    plt.title('금 시세 3일 예측')
     plt.tight_layout()
     plt.show()
-
+    '''
     #-------------------------------------------------------------------------
 
     #추가 사항
@@ -118,7 +117,8 @@ def change_date_and_ARIMA_model(filename='gold_price.csv'):
 
 
     #최종 데이터프레임 반환
-    return df_all, gold_forecast, future_gold
+    return df_gold
+    #return df_all, gold_forecast, future_gold, df_gold
     #df_all = 전체 시계열 데이터 (실제 + 예측), 추가 시각화나 다른 분석할 때 유용
     #gold_forecast = 5일간 예측 수치만 따로 관리, 테이블 출력하거나 파일 저장할 때 깔끔
     #future_gold = 예측 결과에 대응되는 미래 날짜를 따로 쓸 수 있어 예측 결과를 표 형태로 정리하거나 추가 시각화할 때 필요
