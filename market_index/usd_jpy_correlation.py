@@ -61,3 +61,4 @@ def usd_jpy_correlations(filename='exchange_rate.csv'):
     plt.show()
 
     return df_market, correlation
+
