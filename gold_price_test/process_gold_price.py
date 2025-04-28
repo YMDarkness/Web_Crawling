@@ -2,11 +2,11 @@ from datetime import datetime
 import os
 import pandas as pd
 
-from crawl_gold_price import gold_crwal_and_svae_csv
+from crawl_gold_price import gold_crwal_and_save_csv
 
 #csv 파일 읽기
 def process_gold_price_csv(filename='gold_price.csv'):
-    df_gold = pd.read_csv(filename, encoding='utf-8-sig')
+    df_gold = gold_crwal_and_save_csv()
 
     #데이터 정렬
     df_gold['날짜'] = pd.to_datetime(df_gold['날짜'])
