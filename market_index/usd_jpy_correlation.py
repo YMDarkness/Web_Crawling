@@ -5,11 +5,9 @@ import seaborn as sns
 from market_crawl import market_index
 
 #달러-엔화 상관관계
-def usd_jpy_correlations(filename='exchange_rate.csv'):
-    df_market, _, _ = market_index()
+def usd_jpy_correlations(df_market):
 
-    df_market = pd.read_csv(filename, parse_dates=['날짜'])
-    df_market.sort_values('날짜', inplace=True)
+    df_market['날짜'] = pd.to_datetime(df_market['날짜'])
 
     #전일 대비 변화율 계산 (pct_change : 백분율 변화율)
     df_market['미국USD_변화율'] = df_market['미국USD'].pct_change()
@@ -56,9 +54,10 @@ def usd_jpy_correlations(filename='exchange_rate.csv'):
                 df_market['일본JPY(100엔)_변화율'].iloc[i],
                 df_market['날짜'].dt.strftime('%m-%d').iloc[i],
                 fontsize=8, alpha=0.7)
-
     plt.tight_layout()
     plt.show()
 
-    return df_market, correlation
+    print('\n')
+
+    return df_market
 

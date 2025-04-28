@@ -5,12 +5,11 @@ import matplotlib.pyplot as plt
 from market_crawl import market_index
 
 #전일 환율 계산 및 시각화
-def market_graph(filename='exchange_rate.csv'):
-    df_market, _, _ = market_index()
-
+def market_graph(df_market):
+    
     #날짜 데이터 변환 및 정렬
     df_market['날짜'] = pd.to_datetime(df_market['날짜'])
-    df_market = df_market.sort_values(by='날짜')
+    df_market = df_market.sort_values('날짜')
 
     #전일 달러 환율
     df_market['전일_미국USD'] = df_market['미국USD'].shift(1)
@@ -80,6 +79,8 @@ def market_graph(filename='exchange_rate.csv'):
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.show()    
+    plt.show()
 
-    return df_market, df_usd, df_JPY
+    print('\n')  
+
+    return df_market

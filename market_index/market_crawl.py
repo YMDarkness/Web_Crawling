@@ -58,7 +58,7 @@ def market_index(filename='exchange_rate.csv'):
 
         if today in df_market['날짜'].values:
             print(f'[알람] 오늘 달러 환율 데이터가 이미 존재합니다')
-            print(f'[알람] 오늘 엔화 환율 데이터가 이미 존재합니다')
+            print(f'[알람] 오늘 엔화 환율 데이터가 이미 존재합니다', '\n')
         else:
             new_row = pd.DataFrame(
                 [[today, usd_index, jpy_index]],
@@ -66,12 +66,12 @@ def market_index(filename='exchange_rate.csv'):
             )
             df_market = pd.concat([df_market, new_row], ignore_index=True)
             df_market.to_csv(filename, encoding='utf-8-sig', index=False)
-            print('[알람] 환율 데이터 저장 완료 : ', today)
+            print('[알람] 환율 데이터 저장 완료 : ', today, '\n')
             print('[미국USD]', usd_index)
-            print('[일본JPY(100엔)]', jpy_index)
+            print('[일본JPY(100엔)]', jpy_index, '\n')
     else:
         print('[알람] 환율 데이터 저장 실패')
 
-    print(f'[알람] 환율 정보는 약간의 변동이 있을 수 있습니다. 참고용으로만 사용해주세요')
+    print(f'[알람] 환율 정보는 약간의 변동이 있을 수 있습니다. 참고용으로만 사용해주세요', '\n')
 
-    return df_market, usd_index, jpy_index
+    return df_market

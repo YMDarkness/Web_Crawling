@@ -6,8 +6,7 @@ import seaborn as sns
 from usd_jpy_correlation import usd_jpy_correlations
 
 #변화율 기준 클러스터링 (KMeans)
-def market_clusters(filename='exchange_rate.csv'):
-    df_market, _ = usd_jpy_correlations()
+def market_clusters(df_market):
 
     df_market = df_market.dropna() #변화율 계산 후 생긴 결측값 제거
     df_market_x = df_market[['미국USD_변화율', '일본JPY(100엔)_변화율']] #변화율 데이터만 추출
@@ -56,4 +55,6 @@ def market_clusters(filename='exchange_rate.csv'):
     #KMeans는 환율의 움직임 패턴을 자동으로 3가지 유형으로 분류
     #산점도를 통해 어떤 날이 오르고, 어떤 날은 반대로 움직이는 지 시각적으로 확인할 수 있음
 
-    return df_market, df_market_x, kmeans
+    print('\n')
+
+    return df_market

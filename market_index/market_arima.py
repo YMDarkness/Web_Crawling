@@ -1,14 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from statsmodels.tsa.arima_model import ARIMA
+from statsmodels.tsa.arima.model import ARIMA
 import seaborn as sns
 
 from visualizer_market import market_graph
 
 #환율 예측 시도 (ARIMA 모델 이용)
 #ARIMA 모델 구성 및 훈련
-def market_ARIMA(filename='exchange_rate.csv'):
-    df_market, _, _ = market_graph()
+def market_ARIMA(df_market):
 
     #날짜 인덱스 설정
     df_market['날짜'] = pd.to_datetime(df_market['날짜'])
@@ -217,6 +216,8 @@ def market_ARIMA(filename='exchange_rate.csv'):
     plt.tight_layout()
     plt.show()
 
-    return df_all, df_forecast, future_USD, future_JPY
+    print('\n')
+
+    return df_market
 
 
