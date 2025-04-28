@@ -5,7 +5,7 @@ import os
 import pandas as pd
 
 #크롤링 및 csv
-def gold_crwal_and_svae_csv(filename = 'gold_price.csv'):
+def gold_crwal_and_save_csv(filename = 'gold_price.csv'):
     url = f'https://finance.naver.com/marketindex/'
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
