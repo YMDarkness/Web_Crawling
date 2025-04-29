@@ -10,7 +10,7 @@ def main():
     df_gold = process_gold_price_csv(df_gold)
 
     #금 시세 데이터 시각화 및 예측 (아리마 모델 활용)
-    change_date_and_ARIMA_model(df_gold)
+    df_gold = change_date_and_ARIMA_model(df_gold)
 
 if __name__ == '__main__':
     main()

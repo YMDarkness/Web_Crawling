@@ -102,7 +102,7 @@ def change_date_and_ARIMA_model(df_gold):
     df_plot = df_gold[['금_시세']].copy()
 
     #예측 결과 포함
-    df_forecast = pd.Series(gold_forecast.values, index=future_gold, name='금-시세')
+    df_forecast = pd.Series(gold_forecast.values, index=future_gold, name='금_시세')
     df_all = pd.concat([df_plot, df_forecast.to_frame()])
 
     #시각화
