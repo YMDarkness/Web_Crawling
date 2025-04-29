@@ -1,10 +1,10 @@
 # 1. Python 이미지 사용
-FROM python:3.12
+FROM python:3.10
 
 # 2. 작업 디렉터리 설정
 WORKDIR /app
 
-# 3. 현재 폴더 안의 모든 파일 복사 (이제는 .dockerignore로 제외됨)
+# 3. 현재 폴더 안의 모든 파일 복사
 COPY requirements.txt .
 
 # 4. 패키지 설치
