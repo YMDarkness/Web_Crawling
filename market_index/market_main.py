@@ -3,6 +3,7 @@ from visualizer_market import market_graph
 from usd_jpy_correlation import usd_jpy_correlations
 from market_cluster import market_clusters
 from market_arima import market_ARIMA
+from market_kmeans import kmeans_clustering
 
 def main():
     #환율 데이터 크롤링
@@ -19,6 +20,9 @@ def main():
 
     #아리마 모델을 이용한 환율 예측
     df_market = market_ARIMA(df_market)
-    
+
+    #K-means 클러스터링
+    df_market = kmeans_clustering(df_market)
+
 if __name__ == '__main__':
     main()
