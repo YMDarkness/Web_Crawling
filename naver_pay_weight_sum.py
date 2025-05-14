@@ -130,6 +130,7 @@ weigthed_negative_words = {
     '매수': -1, '포기': -1, '저점': -1, '폭락': -3, '적기': -2, '피해': -1, '오류': -1, '충돌': -1, '장애': -1, '압박': -1, '급락': -1
 }
 
+
 #가중치를 반영한 감성 점수 계산 함수
 def calculate_weighted_sentiment_score(title):
     score = 0
