@@ -21,7 +21,7 @@ def main():
     #아리마 모델을 이용한 환율 예측
     df_market = market_ARIMA(df_market)
 
-    #K-means 클러스터링
+    #K-means 클러스터링 및 덴드로그램
     df_market = kmeans_clustering(df_market)
 
 if __name__ == '__main__':
