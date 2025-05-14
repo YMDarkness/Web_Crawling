@@ -13,7 +13,7 @@ def bollinger_kospi(df_kospi):
     #중심선 수치를 수정하면 상단선, 하단선도 변경된다
 
     # 이동 평균 기준일 (예: 20일 기준)
-    window=5
+    window=20
 
     df_kospi['MA20'] = df_kospi['종가'].rolling(window=window).mean()
     #20일 이동 평균선 = 최근 20일 종가의 평균값
