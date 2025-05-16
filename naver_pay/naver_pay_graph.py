@@ -1,5 +1,8 @@
 import pandas as pd
+import matplotlib
+matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
+import gc
 from konlpy.tag import Okt
 import seaborn as sns
 
@@ -57,21 +60,27 @@ def naver_pay_news_graph(df_naver, sentiment_dict):
     plt.title('감성점수 박스플롯')
     plt.ylabel('감성점수')
     plt.grid()
-    plt.show()
+    plt.show(block=True)
+    plt.close()
+    gc.collect()
 
     plt.figure(figsize=(12, 4))
     sns.boxplot(x=df_naver['감성점수'], color='green')
     plt.title('감성점수 박스플롯 (수평)')
     plt.xlabel('감성점수')
     plt.grid()
-    plt.show()
+    plt.show(block=True)
+    plt.close()
+    gc.collect()
 
     plt.figure(figsize=(14, 5))
     sns.boxplot(x='날짜', y='감성점수', data=df_naver, color='skyblue')
     plt.title('날짜별 감성점수 박스플롯')
     plt.xticks(rotation=45)
     plt.grid()
-    plt.show()
+    plt.show(block=True)
+    plt.close()
+    gc.collect()
 
     #바이올렛 플롯
     plt.figure(figsize=(10, 4))
@@ -79,14 +88,18 @@ def naver_pay_news_graph(df_naver, sentiment_dict):
     plt.title('감성점수 바이올린 플롯 (수직)')
     plt.ylabel('감성점수')
     plt.grid()
-    plt.show()
+    plt.show(block=True)
+    plt.close()
+    gc.collect()
 
     plt.figure(figsize=(14, 5))
-    sns.violinplot(x='날짜', y='감성점수', data=df_naver, palette='pastel', legend=False)
+    sns.violinplot(x='날짜', y='감성점수', hue='날짜', data=df_naver, palette='pastel', legend=False)
     plt.title('날짜별 감성점수 바이올린 플롯')
     plt.xticks(rotation=45)
     plt.grid()
-    plt.show()
+    plt.show(block=True)
+    plt.close()
+    gc.collect()
 
     #파이그래프 (부정비율)
     negative = (df_naver['감성점수'] < 0).mean() * 100
@@ -99,4 +112,6 @@ def naver_pay_news_graph(df_naver, sentiment_dict):
             colors=['red', 'blue', 'green']
             )
     plt.title('뉴스비율')
-    plt.show()
+    plt.show(block=True)
+    plt.close()
+    gc.collect()
