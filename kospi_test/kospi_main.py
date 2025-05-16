@@ -29,6 +29,7 @@ def main():
     df_kospi = bollinger_kospi(df_kospi)
 
     #코스피 지수 예측 – XGBoost / LightGBM
+    #df_kospi = kospi_model_upgrade(df_kospi, model_type='XGB')
     df_kospi = kospi_model_upgrade(df_kospi, model_type='XGB')
 
 if __name__ == '__main__':
