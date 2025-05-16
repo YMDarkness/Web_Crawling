@@ -60,6 +60,8 @@ def bollinger_kospi(df_kospi):
     plt.tight_layout()
     plt.show()
 
+    print('\n')
+
     '''
     MA20	20일 간 평균 가격
     STD20	20일 간 가격의 변동성(흩어짐 정도)
