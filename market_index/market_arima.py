@@ -203,7 +203,7 @@ def market_ARIMA(df_market):
     # 기존 데이터 복사
     df_plot = df_market[['일본JPY(100엔)']].copy()
     # 예측 결과 붙이기
-    df_forecast = pd.Series(USD_forecast.values, index=future_JPY, name='일본JPY(100엔)')
+    df_forecast = pd.Series(JPY_forecast.values, index=future_JPY, name='일본JPY(100엔)')
     df_all = pd.concat([df_plot, df_forecast.to_frame()])
 
     # 시각화
