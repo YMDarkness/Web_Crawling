@@ -59,4 +59,6 @@ def kospi_model_upgrade(df_kospi, model_type='XGB'):
     plt.title('XGB 모델 예측 결과')
     plt.show()
 
+    print('\n')
+
     return model, X_test, Y_test, preds
