@@ -14,3 +14,15 @@ __pycache__/
 *.log
 .DS_Store
 Thumbs.db
+
+# git 폴더 제외
+.git/
+.gitignore
+
+# Jupyter 체크포인트 파일 제외
+.ipynb_checkpoints/
+
+# 빌드 결과물이나 임시파일
+*.egg-info/
+dist/
+build/
