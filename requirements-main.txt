@@ -1,0 +1,9 @@
+#통합
+-r requirements-base.txt
+-r requirements-nlp.txt
+-r requirements-deeplearning.txt
+-r requirements-crawling.txt
+-r requirements-db.txt
+-r requirements-visualization.txt
+-r requirements-utils.txt
+-r requirements-aws.txt

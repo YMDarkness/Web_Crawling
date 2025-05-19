@@ -1,0 +1,9 @@
+#딥러닝
+tensorflow==2.18.0
+tensorflow_intel==0.0.1
+##torch==2.6.0
+torchvision==0.21.0
+torchaudio==2.6.0
+xgboost==2.1.4
+keras==3.8.0
+tf_keras==2.18.0

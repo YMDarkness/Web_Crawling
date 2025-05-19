@@ -1,0 +1,9 @@
+#필수 기본 패키지
+numpy==1.26.4
+pandas==2.2.3
+scikit-learn==1.6.1
+matplotlib==3.9.4
+seaborn==0.13.2
+scipy==1.13.1
+tqdm==4.67.1
+joblib==1.4.2

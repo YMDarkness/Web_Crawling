@@ -1,0 +1,7 @@
+#시각화
+mpld3==0.5.10
+mplfinance==0.12.10b0
+wordcloud==1.9.4
+markdown2==2.5.3
+pyLDAvis==3.4.1
+pdfkit==1.0.0

@@ -1,0 +1,6 @@
+#데이터베이스
+aiomysql==0.2.0
+aiosqlite==0.21.0
+peewee==3.17.9
+sqlitedict==2.1.0
+PyMySQL==1.1.1
