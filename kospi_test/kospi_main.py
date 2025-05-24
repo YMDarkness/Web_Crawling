@@ -5,7 +5,7 @@ from kospi_ratio import ratio_kospi
 from forect_kospi import randomforest_kospi
 from kospi_bollinger_bands import bollinger_kospi
 from kospi_XGBClassifier import kospi_model_upgrade
-from compare_kospi_model import compare_kospi_model
+#from compare_kospi_model import compare_kospi_model
 
 def main():
     #코스피 지수 크롤링
@@ -30,10 +30,10 @@ def main():
     df_kospi = bollinger_kospi(df_kospi)
 
     #코스피 지수 예측 – XGBoost / LightGBM
-    #df_kospi = kospi_model_upgrade(df_kospi, model_type='XGB')
+    df_kospi = kospi_model_upgrade(df_kospi, model_type='XGB')
 
     #코스피 지수 예측 비교
-    compare_kospi_model(df_kospi)
+    #df_kospi = compare_kospi_model(df_kospi)
 
 if __name__ == '__main__':
     main()
