@@ -136,3 +136,5 @@ def kmeans_clustering(df_market):
     plt.ylabel('거리')
     plt.grid()
     plt.show()
+
+    return df_market
