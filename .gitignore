@@ -1,5 +1,5 @@
 .venv/
 /cos_pro
-*.csv
+#*.csv
 __pycache__/
 .venv/
