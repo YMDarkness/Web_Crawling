@@ -71,8 +71,8 @@ def kospi_model_upgrade(df_kospi, model_type='XGB'):
     maps = (abs((Y_test - preds) / Y_test) * 100).mean()
     maps = (abs((Y_test - preds) / Y_test.replace(0, np.nan)) * 100).mean()
 
-    print(f'[알람] {model_type.upper()} 모델 RMSE: {rmse:.2f} \n')
-    print(f'[알람] {model_type.upper()} 모델 MAE: {mae:.2f} \n')
+    print(f'[알람] {model_type.upper()} 모델 RMSE: {rmse:.2f}')
+    print(f'[알람] {model_type.upper()} 모델 MAE: {mae:.2f}')
     print(f'[알람] {model_type.upper()} 모델 MAPE: {maps:.2f} \n')
 
     #시각화

@@ -7,7 +7,12 @@ from market_kmeans import kmeans_clustering
 from market_prophet import market_prophet
 from market_xgboost import market_xgboost
 
+from pathlib import Path
+
 def main():
+    #base_path = Path(__file__).resolve().parent
+    #csv_path = base_path / 'exchange_rate.csv'
+
     #환율 데이터 크롤링
     df_market = market_index()
 
@@ -31,6 +36,8 @@ def main():
 
     #XGBoost 모델을 이용한 환율 예측
     df_market = market_xgboost(df_market)
+
+    #df_market.to_csv(csv_path, index=False)
 
 if __name__ == '__main__':
     main()
