@@ -10,6 +10,9 @@ from naver_pay_sentimentdaily import sentiment_daily_date
 
 #형태소 + 2gram 기반 감성점수 계산 함수
 def calculate_score_with_ngram(title, sentiment_dict):
+    if isinstance(sentiment_dict, list):
+        sentiment_dict = dict(sentiment_dict)  # 리스트를 딕셔너리로 변환
+
     okt = Okt()
     words = okt.morphs(title)
     bigrams = [words[i] + words[i+1] for i in range(len(words)-1)]

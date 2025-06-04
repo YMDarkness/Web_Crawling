@@ -7,7 +7,12 @@ from naver_pay_sentimentdaily import sentiment_daily_date
 #from naver_pay_weights import 
 from naver_pay_graph import naver_pay_news_graph
 
+from pathlib import Path
+
 def main():
+    #base_path = Path(__file__).resolve().parent
+    #csv_path = base_path / 'naver_pay_graph_score.csv'
+
     #크롤링
     df_naver = naver_pay_news_crwal()
 
@@ -15,20 +20,22 @@ def main():
     df_naver_process, nouns = naver_pay_news_process(df_naver)
 
     #감성사전과 워드클라우드
-    total_score, word_score = naver_pay_news_wordcloud(df_naver_process, nouns)
+    total_score, word_score = naver_pay_news_wordcloud(df_naver_process)
 
     #감성점수 시각화 (이동평균, 히스토그램)
-    df_result = plot_sentiment_trend(df_naver, sentiment_dict=DEFAULT_SENTIMENT_DICT)
+    df_result = plot_sentiment_trend(df_naver, sentiment_dict=dict(DEFAULT_SENTIMENT_DICT))
 
     #시간별 감성 점수
 
     #날짜별 감성 점수
 
     #날짜별 데이터량
-    df_daily = sentiment_daily_date(df_naver, df_result, DEFAULT_SENTIMENT_DICT)
+    df_daily = sentiment_daily_date(df_naver, df_result, sentiment_dict=dict(DEFAULT_SENTIMENT_DICT))
 
     #파이그래프, 박스플롯
-    naver_pay_news_graph(df_naver, sentiment_dict=DEFAULT_SENTIMENT_DICT)
+    naver_pay_news_graph(df_naver, sentiment_dict=dict(DEFAULT_SENTIMENT_DICT))
+
+    #df_naver.to_csv(csv_path, index=False)
 
 if __name__ == '__main__':
     main()

@@ -6,6 +6,9 @@ from naver_pay_wordcloud import naver_pay_news_wordcloud
 
 #감성점수 이동평균 및 히스토그램
 def plot_sentiment_trend(df_naver, sentiment_dict):
+    if isinstance(sentiment_dict, list):
+        sentiment_dict = dict(sentiment_dict)  # 리스트를 딕셔너리로 변환
+
     #감성점수 계산
     df_naver['감성점수'] = df_naver['제목'].apply(
         lambda title: sum(sentiment_dict.get(word, 0) for word in title.split())

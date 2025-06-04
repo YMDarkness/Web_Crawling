@@ -6,6 +6,9 @@ import matplotlib.dates as mdates
 from naver_pay_sentiment import plot_sentiment_trend
 
 def calculate_score_with_ngram(title, sentiment_dict):
+    if isinstance(sentiment_dict, list):
+        sentiment_dict = dict(sentiment_dict)  # 리스트를 딕셔너리로 변환
+    
     okt = Okt()
     words = okt.morphs(title)
     bigrams = [words[i] + words[i+1] for i in range(len(words)-1)]
