@@ -5,9 +5,14 @@ from kospi_ratio import ratio_kospi
 from forect_kospi import randomforest_kospi
 from kospi_bollinger_bands import bollinger_kospi
 from kospi_XGBClassifier import kospi_model_upgrade
-#from compare_kospi_model import compare_kospi_model
+#from compare_kospi_model import 
+
+from pathlib import Path
 
 def main():
+    #base_path = Path(__file__).resolve().parent
+    #csv_path = base_path / 'kospi_index.csv'
+
     #코스피 지수 크롤링
     df_kospi = kospi_crwal()
 
@@ -34,6 +39,8 @@ def main():
 
     #코스피 지수 예측 비교
     #df_kospi = compare_kospi_model(df_kospi)
+
+    #df_kospi.to_csv(csv_path, index=False)
 
 if __name__ == '__main__':
     main()
