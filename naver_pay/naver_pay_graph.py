@@ -34,7 +34,7 @@ def naver_pay_news_graph(df_naver, sentiment_dict):
     df_naver['시간'] = pd.to_datetime(df_naver['시간'])
     df_naver['날짜'] = df_naver['시간'].dt.floor('d')
 
-     #감성점수의 기술 통계량
+    #감성점수의 기술 통계량
     print(df_naver['감성점수'].describe())
 
     #IQR을 이용한 이상치 탐색
@@ -49,7 +49,7 @@ def naver_pay_news_graph(df_naver, sentiment_dict):
     outlier = df_naver[(df_naver['감성점수'] < lower_bound) | (df_naver['감성점수'] > upper_bound)]
     print(f'이상치 개수 : {len(outlier)}')
     print(df_naver['감성점수'].value_counts())
-    print(outlier)
+    print(df_naver.tail(20))
 
     #박스플롯
     plt.figure(figsize=(12, 4))
