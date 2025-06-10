@@ -48,7 +48,7 @@ def market_xgboost(df_market):
     USD_preds = USD_model.predict(USD_X_test)
 
     USD_rmse = np.sqrt(mean_squared_error(USD_y_test, USD_preds))
-    print(f"[USD XGBoost 결과] RMSE : {USD_rmse:.4f}\n")
+    print(f"[USD XGBoost 결과] RMSE : {USD_rmse:.4f}")
     
     #모델 성능 비교용 로그 저장
     print(f"[USD XGBoost 결과] 예측값 평균 : {USD_preds.mean():.4f}, 실제 평균 : {USD_y_test.mean():.4f}\n")
