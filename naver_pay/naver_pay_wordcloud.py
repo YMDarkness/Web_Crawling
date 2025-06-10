@@ -78,10 +78,15 @@ def naver_pay_news_wordcloud(df_naver, sentiment_dict=DEFAULT_SENTIMENT_DICT, fo
     # 모든 명사 추출
     all_nouns = []
 
+    # 한 글자 단어 제외
+    all_nouns = [word for word in nouns if len(word) > 1]
+
     for sentence in all_titles:
         cleaned = re.sub(r'[^가-힣\s]', '', sentence)  # 한글과 공백만 남김
 
         nouns = okt.nouns(cleaned)  # 명사 추출
+        nouns = [word for word in nouns if len(word) > 1]
+
         all_nouns.extend(nouns)
 
     #불용어 설정
