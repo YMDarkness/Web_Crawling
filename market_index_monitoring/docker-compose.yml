@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  exporter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: market_exporter
+    ports:
+      - "8000:8000"
+    depends_on:
+      - prometheus
+    command: ["python", "exporter.py"]
+    # 운영 시
+    #command: ["gunicorn", "--bind", "0.0.0.0:8000", "exporter:app"]
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      #- ./dashboard.json:/var/lib/grafana/dashboards/dashboard.json
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      # JSON 파일 위치
+    depends_on:
+      - prometheus
