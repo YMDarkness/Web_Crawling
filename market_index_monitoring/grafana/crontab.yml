@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: market-collector
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: market-collector
+            image: my-docker-image
+            command: ["python", "main.py"]
+          restartPolicy: OnFailure
+
+# 주기적으로 데이터 수집만 하려는 경우에만 사용
+# 실시간 프로메테우스 exporter는 flask 서버(exporter.py) 형태로 유지할 것
