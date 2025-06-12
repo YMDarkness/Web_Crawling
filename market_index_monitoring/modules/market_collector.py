@@ -6,7 +6,7 @@ from .base_collector import BaseCollector
 
 class MarketCollector(BaseCollector):
     def __init__(self):
-        super().__init__('market')
+        self.data = {}
 
     # 수집 대상 웹페이지 요청
     def fetch(self):
@@ -16,8 +16,15 @@ class MarketCollector(BaseCollector):
     def parse(self):
         soup = BeautifulSoup(self.html, 'html.parser')
         usd_elem = soup.select_one('#exchangeList > li.on > a.head.usd > div > span.value')
-        jpy_elem = soup.select_one('#exchangeList > li.on > a.head.jpy > div > span.value')
+        jpy_elem = soup.select_one('#exchangeList > li > a.head.jpy > div > span.value')
         self.data = {
-            '달러_환율': float(usd_elem.text.replace(",", "")) if usd_elem else 0.0,
-            '엔화_환율': float(jpy_elem.text.replace(",", "")) if jpy_elem else 0.0
+            'USD_KRW': float(usd_elem.text.replace(",", "")) if usd_elem else 0.0,
+            'JPY_KRW': float(jpy_elem.text.replace(",", "")) if jpy_elem else 0.0
         }
+
+    def to_prometheus_format(self):
+        lines = []
+        for key, value in self.data.items():
+            metric_name = f"market_{key}".replace(".", "_")
+            lines.append(f"{metric_name} {value}")
+        return '\n'.join(lines) + '\n'
