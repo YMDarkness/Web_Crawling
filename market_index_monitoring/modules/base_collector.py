@@ -16,6 +16,7 @@ class BaseCollector:
         output = ""
 
         for k,v in self.data.items():
-            output = f"# HELP {k} AUTO-Collected metric\n"
-            output = f"# TYPE {k} gauge\n"
+            output += f"# HELP {k} AUTO-Collected metric\n"
+            output += f"# TYPE {k} gauge\n"
+            output += f"{k} {v}\n"
         return output
