@@ -10,12 +10,19 @@ class GoldCollector(BaseCollector):
 
     # 수집 대상 웹페이지 요청
     def fetch(self):
-        self.html = requests.get('https://finance.naver.com/marketindex/goldDetail.naver').text
+        self.html = requests.get('https://finance.naver.com/marketindex/').text
 
     # HTML 파싱 및 금 시세 데이터 추출
     def parse(self):
         soup = BeautifulSoup(self.html, 'html.parser')
-        gold_elem = soup.select_one('.gold_td td:nth-child(2)')
+        gold_elem = soup.select_one('#oilGoldList > li > a.head.gold_domestic > div > span.value')
         self.data = {
-            '금_시세 ': float(gold_elem.text.replace(", ", "").replace("원", "")) if gold_elem else 0.0
+            'gold_price': float(gold_elem.text.replace(",", "").replace("원", "")) if gold_elem else 0.0
         }
+
+    def to_prometheus_format(self):
+        lines = []
+        for key, value in self.data.items():
+            metric_name = f"gold_{key}".replace(".", "_")
+            lines.append(f"{metric_name} {value}")
+        return '\n'.join(lines) + '\n'
