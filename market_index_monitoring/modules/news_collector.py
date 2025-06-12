@@ -6,7 +6,7 @@ from .base_collector import BaseCollector
 
 class NewsCollector(BaseCollector):
     def __init__(self):
-        super().__init__('news')
+        self.data = {}
 
     # 수집 대상 웹페이지 요청
     def fetch(self):
@@ -18,6 +18,13 @@ class NewsCollector(BaseCollector):
         news_elem = soup.select_one('dd.articleSubject a')
         
         self.data = {
-            f'헤드라인_{i+1}' : news_elem.text.strip()
+            f'headline_{i+1}' : news_elem.text.strip()
             for i, news_elem in enumerate(news_elem[:5]) # 상위 5개 뉴스 노출
         }
+
+    def to_prometheus_format(self):
+        lines = []
+        for key, value in self.data.items():
+            metric_name = f"news_{key}".replace(".", "_")
+            lines.append(f"{metric_name} {value}")
+        return '\n'.join(lines) + '\n'
