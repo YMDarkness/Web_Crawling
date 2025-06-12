@@ -21,4 +21,3 @@ news_titles = soup.select(".rankingnews_list .list_title")
 print("네이버 많이 본 뉴스")
 for idx, title in enumerate(news_titles[:10], 1): #상위 10개 출력
     print(f"{idx}. {title.get_text().strip()}")
-
