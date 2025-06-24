@@ -18,9 +18,9 @@ services:
       - "8000:8000"
     depends_on:
       - prometheus
-    command: ["python", "exporter.py"]
+    #command: ["python", "exporter.py"]
     # 운영 시
-    #command: ["gunicorn", "--bind", "0.0.0.0:8000", "exporter:app"]
+    command: ["gunicorn", "--bind", "0.0.0.0:8000", "exporter:app"]
 
   grafana:
     image: grafana/grafana
@@ -34,3 +34,18 @@ services:
       # JSON 파일 위치
     depends_on:
       - prometheus
+    environment:
+      - GF_SECURITY_ADMIN_USER=lvnjfsd
+      - GF_SECURITY_ADMIN_PASSWORD=ahslxjfld12#
+      #비밀번호 = 모니터링12#
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./certs:/etc/letsencrypt
+    depends_on:
+      - grafana
