@@ -9,4 +9,5 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 기본 실행 명령 (flask 서버용)
-CMD ["python", "main.py"]
+# CMD ["python", "main.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "exporter:app"]
