@@ -7,6 +7,8 @@ from modules.dji_collector import DJICollector
 from modules.n225_collector import N225Collector
 from modules.ixic_collector import IXICCollector
 from modules.sp_collector import SpCollector
+from modules.wti_collector import WTICollector
+from modules.gasoline_collector import GasolineCollector
 
 # 프로메테우스 exporter 실행
 
@@ -21,7 +23,9 @@ def metrics():
         DJICollector(), 
         N225Collector(), 
         IXICCollector(), 
-        SpCollector()
+        SpCollector(),
+        WTICollector(),
+        GasolineCollector()
         ]
     output = ""
     try:
