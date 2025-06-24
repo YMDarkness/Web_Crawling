@@ -6,6 +6,8 @@ from modules.dji_collector import DJICollector
 from modules.n225_collector import N225Collector
 from modules.sp_collector import SpCollector
 from modules.ixic_collector import IXICCollector
+from modules.wti_collector import WTICollector
+from modules.gasoline_collector import GasolineCollector
 
 # main
 
@@ -65,6 +67,20 @@ def main():
     n225.parse()
 
     print(n225.to_prometheus_format())
+
+    # WTI
+    wti = WTICollector()
+    wti.fetch()
+    wti.parse()
+
+    print(wti.to_prometheus_format())
+
+    # 휘발유
+    gasoline = GasolineCollector()
+    gasoline.fetch()
+    gasoline.parse()
+
+    print(gasoline.to_prometheus_format())
 
 if __name__ == "__main__":
     main()
