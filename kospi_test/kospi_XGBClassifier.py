@@ -82,6 +82,7 @@ def kospi_model_upgrade(df_kospi, model_type='XGB'):
 
     print('\n')
     
+    #무한 루프로 인해 주석 처리
     print("\n [알람] XGBoost 모델 학습 및 평가")
     #df_kospi, model_xgb, X_test_xgb, Y_test_xgb, preds_xgb = kospi_model_upgrade(df_kospi, model_type='XGB')
 
