@@ -39,3 +39,4 @@ class SamsungBioLogics(BaseCrawler):
             lines.append(f'{metric} {value}')
         return '\n'.join(lines) + '\n'
     '''
+    
