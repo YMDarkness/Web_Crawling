@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
-url = 'https://finance.naver.com/world/sise.naver?symbol=NAS@IXIC'
+url = ''
 
 options = Options()
 options.add_argument('--headless')
@@ -25,7 +25,7 @@ response = requests.get(url, headers=headers)
 #HTML 파싱
 soup = BeautifulSoup(driver.page_source, "html.parser")
 
-news_titles = soup.select_one('p.no_today')
+news_titles = soup.select_one('')
 
 #출력
 print("크롤링 결과 테스트 : ", news_titles)
