@@ -58,3 +58,4 @@ class BaseCrawler:
     
     def quit(self):
         self.driver.quit()
+        

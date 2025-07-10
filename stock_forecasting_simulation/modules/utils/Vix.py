@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 from .BaseCrawler import BaseCrawler
 
-# VIX (공포지수) 지수
+# VIX (공포지수, 변동성 지수) 지수
 
 class VIX(BaseCrawler):
     def __init__(self):
@@ -37,4 +37,3 @@ class VIX(BaseCrawler):
             lines.append(f'{metric} {value}')
         return '\n'.join(lines) + '\n'
     '''
-    
