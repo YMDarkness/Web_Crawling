@@ -39,3 +39,4 @@ class Nvidia(BaseCrawler):
             lines.append(f'{metric} {value}')
         return '\n'.join(lines) + '\n'
     '''
+    
