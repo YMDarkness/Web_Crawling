@@ -38,3 +38,4 @@ class Apple(BaseCrawler):
         return '\n'.join(lines) + '\n' # 한 줄씩 붙이기
     # 크롤링한 데이터를 Prometheus가 이해할 수 있는 텍스트 포맷으로 변환하는 역할
     '''
+    
