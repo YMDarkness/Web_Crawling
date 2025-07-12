@@ -1,6 +1,7 @@
 import pandas as pd
 
 # 결측값 처리 / 스케일링 / 윈도윙 등
+# 
 
 def fill_missing(df, method='ffill'):
     return df.fillna(method=method)
