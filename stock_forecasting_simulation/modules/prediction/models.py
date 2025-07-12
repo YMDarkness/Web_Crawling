@@ -7,7 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # 예시 데이터
-df = pd.read_csv('', parse_dates=['date'])
+df = pd.read_csv('sample_stock.csv', parse_dates=['date'])
 df = df[['date', 'close']]
 
 # 아리마 모델 예측
