@@ -82,9 +82,9 @@ goldoil = [
 ]
 
 etc = [
-    USD, 
-    JPY,
-    Dxy, 
+    Usd, 
+    Jpy,
+    DXY, 
     US10Y, 
     BTC, 
     IXIC, 
