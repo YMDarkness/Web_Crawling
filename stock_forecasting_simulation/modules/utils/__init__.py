@@ -1,6 +1,6 @@
 
 # modules/utils/__init__.py
-# 
+# 크롤링 그룹화
 
 from .Amazon import Amazon
 from .AMD import AMD
@@ -26,7 +26,8 @@ from .Kospi import Kospi
 
 from .LGensol import LGensol
 
-from .Market import Market
+from .USD import Usd
+from .JPY import Jpy
 from .Meta import Meta
 from .Microsoft import Microsoft
 
@@ -81,7 +82,8 @@ goldoil = [
 ]
 
 etc = [
-    Market, 
+    USD, 
+    JPY,
     Dxy, 
     US10Y, 
     BTC, 
