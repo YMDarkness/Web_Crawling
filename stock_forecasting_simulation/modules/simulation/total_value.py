@@ -8,7 +8,7 @@ import pandas as pd
 # 시뮬레이션 전체 흐름 확인
 
 # 예시용 데이터 로드
-df = pd.read_csv('', parse_dates=['date'], index_col='date')
+df = pd.read_csv('sample_stock.csv', parse_dates=['date'], index_col='date')
 
 # 전략 적용
 df = simple_moving_average_strategy(df)
