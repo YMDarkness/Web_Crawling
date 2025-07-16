@@ -28,6 +28,7 @@ from .LGensol import LGensol
 
 from .USD import Usd
 from .JPY import Jpy
+from .N225 import N225
 from .Meta import Meta
 from .Microsoft import Microsoft
 
@@ -90,5 +91,6 @@ etc = [
     IXIC, 
     GSPC, 
     Kospi, 
-    VIX
+    VIX,
+    N225
 ]
