@@ -50,7 +50,7 @@ def naver_pay_news_wordcloud(df_naver, sentiment_dict=DEFAULT_SENTIMENT_DICT, fo
     okt = Okt()
 
     # 제목 컬럼에서 NaN 제거
-    all_titles = df_naver['제목'].dropna().tolist()
+    all_titles = df_naver['제목'].dropna().astype(str).tolist()
 
     #감성 점수
     nouns = []
