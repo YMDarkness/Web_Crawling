@@ -14,7 +14,12 @@ def naver_pay_news_process(df_naver):
     print(f'[알람] 데이터 누적 및 중복 제거 완료')
 
     #제목 결합 후 형태소 분석
-    text = ' '.join(df_naver_process['제목'])
+    text = ' '.join(df_naver_process['제목'].dropna().astype(str))
+    '''
+    dropna() → NaN 제거
+    astype(str) → float, int 등 비문자형을 문자열로 변환
+    join() → 이제 모든 값이 str이므로 에러 없음
+    '''
 
     #형태소 분석
     okt = Okt()
