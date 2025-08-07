@@ -5,6 +5,7 @@ from kospi_ratio import ratio_kospi
 from forect_kospi import randomforest_kospi
 from kospi_bollinger_bands import bollinger_kospi
 from kospi_XGBClassifier import kospi_model_upgrade
+from kospi_simulate import kospi_simulate
 #from compare_kospi_model import 
 
 from pathlib import Path
@@ -41,6 +42,9 @@ def main():
     #df_kospi = compare_kospi_model(df_kospi)
 
     #df_kospi.to_csv(csv_path, index=False)
+
+    #코스피 지수 시뮬레이션
+    df_kospi = kospi_simulate(df_kospi)
 
 if __name__ == '__main__':
     main()
