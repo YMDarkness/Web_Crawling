@@ -93,7 +93,7 @@ def naver_pay_news_wordcloud(df_naver, sentiment_dict=DEFAULT_SENTIMENT_DICT, fo
     stopwords = set(['있다', '하다', '것', '되다', '이다', '수', '더', '등', '및', '그', '저', '이'])
 
     #불용어 제거
-    word_score = [word for word in word_score if word not in stopwords]
+    word_score = [(w, s) for (w, s) in word_score if w not in stopwords]
 
     #워드클라우드
     filtered_nouns = [word for word in all_nouns if word not in stopwords]
