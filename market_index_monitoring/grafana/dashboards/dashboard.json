@@ -960,7 +960,7 @@
         "x": 0,
         "y": 19
       },
-      "id": 5,
+      "id": 4,
       "options": {
         "legend": {
           "calcs": [],
@@ -979,10 +979,10 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "ixic_ixic_index{job=\"market_exporter\", instance=\"host.docker.internal:8000\"}",
+          "expr": "dji_dji_index{job=\"market_exporter\", instance=\"host.docker.internal:8000\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
-          "legendFormat": "{{label_name}} 나스닥 지수",
+          "legendFormat": "{{label_name}} 다우존스 지수",
           "range": true,
           "refId": "시세",
           "useBackend": false
@@ -994,7 +994,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "avg_over_time(ixic_ixic_index{job=\"market_exporter\", instance=\"host.docker.internal:8000\"}[5m])",
+          "expr": "avg_over_time(dji_dji_index{job=\"market_exporter\", instance=\"host.docker.internal:8000\"}[5m])",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1005,7 +1005,7 @@
           "useBackend": false
         }
       ],
-      "title": "나스닥",
+      "title": "다우존스",
       "type": "timeseries"
     },
     {
@@ -1074,7 +1074,7 @@
         "x": 6,
         "y": 19
       },
-      "id": 4,
+      "id": 5,
       "options": {
         "legend": {
           "calcs": [],
@@ -1093,10 +1093,10 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "dji_dji_index{job=\"market_exporter\", instance=\"host.docker.internal:8000\"}",
+          "expr": "ixic_ixic_index{job=\"market_exporter\", instance=\"host.docker.internal:8000\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
-          "legendFormat": "{{label_name}} 다우존스 지수",
+          "legendFormat": "{{label_name}} 나스닥 지수",
           "range": true,
           "refId": "시세",
           "useBackend": false
@@ -1108,7 +1108,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "avg_over_time(dji_dji_index{job=\"market_exporter\", instance=\"host.docker.internal:8000\"}[5m])",
+          "expr": "avg_over_time(ixic_ixic_index{job=\"market_exporter\", instance=\"host.docker.internal:8000\"}[5m])",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1119,7 +1119,7 @@
           "useBackend": false
         }
       ],
-      "title": "다우존스",
+      "title": "나스닥",
       "type": "timeseries"
     },
     {
@@ -1609,5 +1609,5 @@
   "timezone": "browser",
   "title": "Market Monitoring",
   "uid": "market-monitor",
-  "version": 10
+  "version": 11
 }
