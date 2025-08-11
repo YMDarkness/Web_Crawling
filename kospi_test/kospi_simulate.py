@@ -8,6 +8,8 @@ from kospi_XGBClassifier import kospi_model_upgrade
 def kospi_simulate(df_kospi):
     # 수익률 기반 전략 시뮬레이션
 
+    if isinstance(df_kospi, tuple):
+        df_kospi = df_kospi[0] # 첫 번째 요소만 DataFrame
     df = df_kospi.copy()
 
     df['MA_5'] = df['전일_대비_변화량(%)'].rolling(window=5).mean()
@@ -45,6 +47,8 @@ def kospi_simulate(df_kospi):
     volatility = df['전략_수익률'].std()
     sharpe_ratio = df['전략_수익률'].mean() / df['전략_수익률'].std()
 
+    print('\n')
+    print(f"전략 시뮬레이션 결과\n")
     print(f"총 수익률: {total_return:.2%}")
     print(f"변동성 (Volatility): {volatility:.4f}")
     print(f"샤프지수 (Sharpe Ratio): {sharpe_ratio:.2f}")
