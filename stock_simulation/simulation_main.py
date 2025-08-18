@@ -2,6 +2,8 @@ from stock_crawler import crawl_recent_price
 from returns import calculate_future_returns 
 from strategy import simulate_strategy
 from plot import plot_simulation
+from stock_arima import stock_arima_model
+from stock_xgb import stock_xgb_model
 
 # 메인 함수
 
@@ -20,7 +22,13 @@ def main():
     # 4. 시각화
     plot_simulation(df, df_total, ticker)
 
-    # 5. 결과 출력
+    # 5. 아리마 예측 모델
+    stock_arima_model(df)
+
+    # 6. XGBoost 예측 모델
+    stock_xgb_model(df)
+
+    # 7. 결과 출력
     print('\n수익률 전략 시뮬레이션 결과: ')
     for k, v in result.items():
         print(f'{k}: {v:.2f}%')
