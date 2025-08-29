@@ -1,0 +1,10 @@
+global:
+  scrape_interval: "15s"
+
+scrape_configs:
+  - job_name: 'stock_forecasting_simulation'
+    static_configs:
+      #- targets: ['stock_forecasting_simulation:8001']
+      - targets: ['host.docker.internal:8001'] # 도커 내부 실행 시
+      # host.docker.internal은 맥/윈도우에서만 유효
+      # 리눅스나 K8s는 IP/서비스명 수정 필요
