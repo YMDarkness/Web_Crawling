@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9091:9091"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  exporter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stock_exporter
+    ports:
+      - "8001:8001"
+    depends_on:
+      - prometheus
+    command: ["python", "exporter.py"]
+    # 운영 시
+    # command: ["gunicorn", "--bind", "0.0.0.0:8001", "exporter:app"]
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      #- ./dashboard.json:var/lib/grfana/dashboards/dashboard.json
+      - ./grfana/dashboards:/var/lib/grafana/dashboards
+      # json 파일 위치
+    depends_on:
+      - prometheus
+    environment:
+      - GF_SECURITY_ADMIN_USER=lvnjfed
+      - GF_SECURITY_ADMIN_PASSWORD=ahslxj12#
+      # 그라파나 계정 설정
+      # 비밀번호 = 모니터12#
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "81:81"
+      - "444:444"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./certs:/etc/letsencrypt
+    depends_on:
+      - grafana
