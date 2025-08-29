@@ -21,8 +21,10 @@ def plot_simulation(df, df_total, ticker='종목명'):
     plt.rcParams['axes.unicode_minus'] = False
     
     plt.plot(df['날짜'], df['종가'], label='종가', color='black')
-    plt.plot(df['날짜'], df['MA_5'], label='5일_이동평균', linestyle='--', color='blue', alpha=0.5)
-    plt.plot(df['날짜'], df['MA_20'], label='20일_이동평균', linestyle='--', color='orange', alpha=0.5)
+
+    # NaN 제거 후 시각화
+    plt.plot(df['날짜'], df['MA_5'], linestyle="--", color="blue", alpha=0.7, label="5일 이동평균")
+    plt.plot(df['날짜'], df['MA_20'], linestyle="--", color="orange", alpha=0.7, label="20일 이동평균")
 
     # 매수 시점 표시
     if 'signal' in df.columns:
