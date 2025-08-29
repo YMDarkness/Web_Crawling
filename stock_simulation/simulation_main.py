@@ -23,7 +23,7 @@ def main():
     plot_simulation(df, df_total, ticker)
 
     # 5. 아리마 예측 모델
-    stock_arima_model(df)
+    stock_arima_model(df, ticker)
 
     # 6. XGBoost 예측 모델
     stock_xgb_model(df)
