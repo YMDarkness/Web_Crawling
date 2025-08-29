@@ -8,7 +8,21 @@ from sklearn.metrics import mean_squared_error
 
 from stock_arima import stock_arima_model
 
-def stock_xgb_model(df, n_future=3):
+def stock_xgb_model(df, n_future=5):
+    '''
+    XGBoost 모델
+
+    XGBoost(eXtreme Gradient Boosting)는 경사하강법을 활용하는 지도 학습 부스팅 알고리즘인 
+    그레이디언트 부스트 Decision Trees를 사용하는 분산형 오픈 소스 머신 러닝 라이브러리
+    Gradient Boosting 알고리즘을 기반으로 한 강력한 머신러닝 모델
+    주로 회귀 및 분류 문제에 사용, 특히 대규모 데이터셋에서 뛰어난 성능을 발휘
+
+    Gradient Boosting 알고리즘
+
+    Gradient(혹은 잔차(Residual))를 이용하여 이전 모델을 보완하는 기법을 의미
+    이전 학습기의 잔차를 다음 학습기가 학습하고 학습시를 계속 추가해 가면서
+    줄여가는 방식
+    '''
 
     # 피처 엔지니어링
     df = df.copy()
@@ -49,6 +63,8 @@ def stock_xgb_model(df, n_future=3):
     # XGBoost 모델 학습
     stock_model = XGBRegressor(n_estimators=200, learning_rate=0.05, max_depth=3, random_state=42)
     stock_model.fit(X_train, y_train)
+    
+    # 예측
     stock_preds = stock_model.predict(X_test)
 
     stock_rmse = np.sqrt(mean_squared_error(y_test, stock_preds))
@@ -58,12 +74,17 @@ def stock_xgb_model(df, n_future=3):
     print(f'[XGBoost 결과] 예측값 평균 : {stock_preds.mean():.4f}')
     print(f'[XGBoost 결과] 실제값 평균 : {y_test.mean():.4f}\n')
 
-    # 예측값 저장
-    df.loc[y_test.index, 'stock_pred_xgb'] = stock_preds
+    # 예측 길이 맞추기
+    if len(stock_preds) == len(y_test):
+        df.loc[y_test.index, 'stock_pred_xgb'] = stock_preds
+    else:
+        print(f'[XGBoost 결과] 예측 길이 불일치: preds = {len(stock_preds)}, y_test = {len(y_test)}')
 
     # 시각화
-    plt.plot(y_test.index, y_test,label='실제 종가 변화', color='blue', linewidth=2)
-    plt.plot(y_test.index, stock_preds, label='XGBoost 예측', color='orange', linestyle='--')
-    plt.title('XGBoost 모델을 이용한 주가 변화 예측')
+    plt.figure(figsize=(12, 6))
+    plt.plot(y_test.index, y_test, label='실제 수익률', color='blue', linewidth=2)
+    plt.plot(y_test.index, stock_preds, label='XGBoost 예측 수익률', color='orange', linestyle='--')
+    plt.axhline(0, color='red', linestyle=':') # 기준선 0%
+    plt.title(f'XGBoost 모델을 이용한 {n_future}일 후 주가 수익률 예측')
     plt.legend()
     plt.show()
