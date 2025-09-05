@@ -17,7 +17,7 @@ class Tesla(BaseCrawler):
         super().fetch_data(url, wait_selector)
 
     def parse_data(self):
-        soup = BeautifulSoup(self.html, 'gtml.parser')
+        soup = BeautifulSoup(self.html, 'html.parser')
         tesla_price = soup.select_one('strong.GraphMain_price__H72B2')
         '''
         self.data = {
