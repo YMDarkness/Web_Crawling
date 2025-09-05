@@ -25,7 +25,7 @@ class LGensol(BaseCrawler):
         }
         '''
         price = float(
-            lgensol_price.text.strip().split('KRW')[0].replace(',', '')
+            lgensol_price.text.strip().split('KRW')[0].replace(',', '').replace('\n', '')
         ) if lgensol_price else 0.0
         self.data = {'lgensol_price' : price}
 
