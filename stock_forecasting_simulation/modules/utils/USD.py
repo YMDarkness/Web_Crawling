@@ -1,4 +1,5 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 from .BaseCrawler import BaseCrawler
@@ -7,7 +8,7 @@ from .BaseCrawler import BaseCrawler
 
 class Usd(BaseCrawler):
     def __init__(self):
-        self.data = {}
+        super().__init__('usd')
 
     # 수집 대상 웹페이지 요청
     def fetch_data(self):
@@ -26,10 +27,39 @@ class Usd(BaseCrawler):
             'JPY_KRW': float(jpy_price.text.replace(",", "")) if jpy_price else 0.0
         }
         '''
-        usd_prices = float(
-            usd_price.text.strip().split('KRW')[0].replace(',', '')
-        ) if usd_price else 0.0
-        self.data = {'usd_price' : usd_prices}
+        
+        price = 0.0
+        if usd_price:
+            # get_text()를 사용하여 중첩된 텍스트 사이에 공백을 추가
+            raw_string = usd_price.get_text(' ', strip=True)
+            
+            # 숫자와 소수점을 제외한 모든 문자를 제거
+            cleaned_string = re.sub(r'[^0-9.]', '', raw_string)
+            
+            # 정제된 문자열이 비어있지 않으면 float으로 변환
+            if cleaned_string:
+                price = float(cleaned_string)
+            else:
+                print(f"가격 정보를 찾을 수 없습니다: {raw_string}")
+
+        self.data = {'usd_price': price}
+
+        '''price = 0.0
+        if usd_price:
+            raw_string = usd_price.text.strip()
+            
+            # 정규 표현식으로 숫자와 소수점만 추출
+            match = re.search(r'(\d{1,3}(?:,\d{3})*\.\d+)', raw_string)
+            
+            if match:
+                # 추출된 문자열에서 쉼표 제거 후 float 변환
+                extracted_price = match.group(1).replace(',', '').replace('\n', '')
+                price = float(extracted_price)
+            else:
+                # 가격 정보를 찾지 못했을 경우 로그를 남겨 디버깅에 활용
+                print(f"가격 정보를 찾을 수 없습니다: {raw_string}")
+
+        self.data = {'usd_price' : price}'''
 
     '''
     def prometheus_format(self):
