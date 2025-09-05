@@ -1,4 +1,5 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 from .BaseCrawler import BaseCrawler
@@ -24,9 +25,26 @@ class WTI(BaseCrawler):
             'wti_price': float(wti_price.text.replace(',', '').replace('원', '')) if wti_price else 0.0
         }
         '''
-        price = float(
+        '''price = float(
             wti_price.text.strip().split('KRW')[0].replace(',', '')
         ) if wti_price else 0.0
+        self.data = {'wti_price' : price}'''
+
+        price = 0.0
+        if wti_price:
+            raw_string = wti_price.text.strip()
+            
+            # 정규 표현식으로 숫자와 소수점만 추출
+            match = re.search(r'(\d{1,3}(?:,\d{3})*\.\d+)', raw_string)
+            
+            if match:
+                # 추출된 문자열에서 쉼표 제거 후 float 변환
+                extracted_price = match.group(1).replace(',', '').replace('\n', '')
+                price = float(extracted_price)
+            else:
+                # 가격 정보를 찾지 못했을 경우 로그를 남겨 디버깅에 활용
+                print(f"가격 정보를 찾을 수 없습니다: {raw_string}")
+
         self.data = {'wti_price' : price}
 
     '''
