@@ -1,7 +1,10 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
+
 from .BaseCrawler import BaseCrawler
+from .price_parser import extract_price
 
 # 아마존 주가
 
@@ -19,22 +22,9 @@ class Amazon(BaseCrawler):
     def parse_data(self):
         soup = BeautifulSoup(self.html, 'html.parser')
         amazon_price = soup.select_one('strong.GraphMain_price__H72B2')
-        '''
-        self.data = {
-            'amazon_price' : float(amazon_price.text.replace(',', '').replace('원', '')) if amazon_price else 0.0
-        }
-        '''
-        price = float(
-            amazon_price.text.strip().split('USD')[0].replace(',', '')
-            ) if amazon_price else 0.0
-        self.data = {'amazon_price' : price}
+        
+        price = 0.0
+        if amazon_price:
+            price = extract_price(amazon_price.text)
 
-    '''
-    def prometheus_format(self):
-        lines = []
-        for key, value in self.data.items():
-            metric = f'amazon_{key}'.replace('.', '')
-            lines.append(f'{metric} {value}')
-        return '\n'.join(lines) + '\n'
-    '''
-    
+        self.data = {'amazon_price': price}
