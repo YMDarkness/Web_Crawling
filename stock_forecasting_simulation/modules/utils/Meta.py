@@ -1,7 +1,10 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
+
 from .BaseCrawler import BaseCrawler
+from .price_parser import extract_price
 
 # 메타(구 페이스북) 주가
 
@@ -19,22 +22,10 @@ class Meta(BaseCrawler):
     def parse_data(self):
         soup = BeautifulSoup(self.html, 'html.parser')
         meta_price = soup.select_one('strong.GraphMain_price__H72B2')
-        '''
-        self.data = {
-            'meta_price' : float(meta_price.text.replace(',','').replace('원', '')) if meta_price else 0.0
-        }
-        '''
-        price = float(
-            meta_price.text.strip().split('USD')[0].replace(',', '')
-        ) if meta_price else 0.0
-        self.data = {'meta_price' : price}
+        
+        price = 0.0
+        if meta_price:
+            price = extract_price(meta_price.text)
 
-    '''
-    def prometheus_format(self):
-        lines = []
-        for key, value in self.data.items():
-            metric = f'meta_{key}'.replace('.', '')
-            lines.append(f'{metric} {value}')
-        return '\n'.join(lines) + '\n'
-    '''
+        self.data = {'meta_price' : price}
     
