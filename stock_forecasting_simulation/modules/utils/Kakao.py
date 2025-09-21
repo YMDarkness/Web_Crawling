@@ -1,7 +1,10 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
+
 from .BaseCrawler import BaseCrawler
+from .price_parser import extract_price
 
 # Kakao 주가
 
@@ -19,22 +22,9 @@ class Kakao(BaseCrawler):
     def parse_data(self):
         soup = BeautifulSoup(self.html, 'html.parser')
         kakao_price = soup.select_one('p.no_today')
-        '''
-        self.data = {
-            'kakao_price' : float(kakao_price.text.replace(',', '').replace('원', '')) if kakao_price else 0.0
-        }
-        '''
-        price = float(
-            kakao_price.text.strip().split('KRW')[0].replace(',', '')
-        ) if kakao_price else 0.0
-        self.data = {'kakao_price' : price}
+        
+        price = 0.0
+        if kakao_price:
+            price = extract_price(kakao_price.text)
 
-    '''
-    def prometheus_format(self):
-        lines = []
-        for key, value in self.data.items():
-            metric = f'kakao_{key}'.replace('.', '')
-            lines.append(f'{metric} {value}')
-        return '\n'.join(lines) + '\n'
-    '''
-    
+        self.data = {'kakao_price' : price}
