@@ -1,7 +1,10 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
+
 from .BaseCrawler import BaseCrawler
+from .price_parser import extract_price
 
 # POSCO홀딩스 주가
 
@@ -19,24 +22,9 @@ class PoscoHoldings(BaseCrawler):
     def parse_data(self):
         soup = BeautifulSoup(self.html, 'html.parser')
         poscoholdings_price = soup.select_one('p.no_today')
-        '''
-        self.data = {
-            'poscoholdings_price' : 
-            float(poscoholdings_price.text.replace(',', '')
-                  .replace('원', '')) if poscoholdings_price else 0.0
-        }
-        '''
-        price = float(
-            poscoholdings_price.text.strip().split('KRW')[0].replace(',', '')
-        ) if poscoholdings_price else 0.0
-        self.data = {'poscoholdings_price' : price}
+        
+        price = 0.0
+        if poscoholdings_price:
+            price = extract_price(poscoholdings_price.text)
 
-    '''
-    def prometheus_format(self):
-        lines = []
-        for key, value in self.data.items():
-            metric = f'poscoholdings_{key}'.replace('.', '')
-            lines.append(f'{metric} {value}')
-        return '\n'.join(lines) + '\n'
-    '''
-    
+        self.data = {'poscoholdings_price' : price}
